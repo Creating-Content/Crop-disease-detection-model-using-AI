@@ -1,8 +1,0 @@
-streamlit
-torch
-torchvision
-pandas
-numpy
-opencv-python  # for cv2
-Pillow         # for PIL (Pillow is the fork of PIL)
-requests
