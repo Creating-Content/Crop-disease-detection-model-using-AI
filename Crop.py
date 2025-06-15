@@ -612,7 +612,7 @@ def segment_with_unet(image: Image.Image, mask_radius_factor=0.75):
 
 # --- Gemini API Functions for Classification and Remedies (from App2.py, slightly modified for error handling) ---
 @st.cache_data(ttl=3600) # Cache results for 1 hour
-def predict_disease_with_gemini(image_pil: Image.Image) -> str:
+def predict_disease_with_model_ADI(image_pil: Image.Image) -> str:
     """
     Sends a PIL Image to the Gemini API for disease prediction.
     Returns disease name in English and Bengali.
@@ -682,7 +682,7 @@ def predict_disease_with_gemini(image_pil: Image.Image) -> str:
         return "Error"
 
 @st.cache_data(ttl=3600) # Cache results for 1 hour
-def get_remedies_with_gemini(disease_name: str, temp: float, humidity: float, ph: float, light: float, N: float, P: float, K: float, rain: str) -> dict:
+def get_remedies_with_model_ADI(disease_name: str, temp: float, humidity: float, ph: float, light: float, N: float, P: float, K: float, rain: str) -> dict:
     """
     Requests remedies and precautions from Gemini API based on disease and environment.
     Uses structured output (JSON schema).
@@ -957,7 +957,7 @@ def main():
             st.warning('Please upload an image first.')
         else:
             with st.spinner('Analyzing image and fetching remedies...'):
-                predicted_disease = predict_disease_with_gemini(image_pil) 
+                predicted_disease = predict_disease_with_model_ADI(image_pil) 
                 
                 if predicted_disease == "API Key Missing":
                     st.error("API Key Missing. Please set your GENERATIVE_LANGUAGE_API_KEY environment variable or in .streamlit/secrets.toml.")
@@ -970,7 +970,7 @@ def main():
                     ai_confidence = random.uniform(85.0, 99.0)
                     
                     # Fetch remedies using the values from the UNIFIED inputs
-                    remedies_data = get_remedies_with_gemini(
+                    remedies_data = get_remedies_with_model_ADI(
                         predicted_disease, 
                         temperature, humidity, soil_ph, light_intensity, 
                         npk_n, npk_p, npk_k, rain_status
