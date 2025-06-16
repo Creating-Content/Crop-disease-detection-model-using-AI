@@ -526,7 +526,7 @@ def load_unet_model_cached():
     unet_instance = UNet()
     try:
         # Assuming 'leaf_unet3_model.pth' is in the same directory as this app.py
-        MODEL_PATH = os.path.join(os.path.dirname(__file__), 'leaf_unet3_model.pth')
+        MODEL_PATH = os.path.join(os.path.dirname(__file__), 'leaf_unett_model.pth')
         if not os.path.exists(MODEL_PATH):
             st.error(f"U-Net model file not found at: {MODEL_PATH}. Disease segmentation will not work.")
             return None, device
