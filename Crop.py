@@ -628,7 +628,7 @@ def predict_disease_with_model_ADI(image_pil: Image.Image) -> str:
 
     vision_prompt = """
     Analyze the provided plant or leaf image for health issues. Identify any abnormal conditions like diseases, pests, deficiencies, or decay.
-    Respond STRICTLY with the exact name of the condition identified and the plant name, in English, followed by its Bengali translation in parentheses.
+    Respond STRICTLY with the exact name of the condition identified and the exact plant name, in English, followed by its Bengali translation in parentheses.
     Example: 'Tomato Early Blight (টমেটোর আগাম ধসা রোগ)'.
     If multiple conditions, prioritize the most severe.
     If no issues, reply 'Healthy'.
