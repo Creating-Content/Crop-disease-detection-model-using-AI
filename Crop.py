@@ -566,7 +566,7 @@ def create_circular_mask(height, width, center=None, radius=None):
     return mask.astype(np.uint8)
 
 # --- U-Net Segmentation (Modified to apply circular mask and upscale) ---
-def segment_with_unet(image: Image.Image, mask_radius_factor=0.75):
+def segment_with_unet(image: Image.Image, mask_radius_factor=0.60):
     if unet is None:
         # Error message is already shown in load_unet_model_cached
         return np.array(image) # Return original image if U-Net not loaded
