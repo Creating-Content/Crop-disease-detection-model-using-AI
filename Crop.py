@@ -168,7 +168,7 @@ st.markdown(f"""
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         border: 1px solid #d4edda;
         margin: 120px auto 30px auto;
-        max-width: 60%;
+        max-width: 50%;
     }}
 
     /* Header Title */
