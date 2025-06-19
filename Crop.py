@@ -23,26 +23,19 @@ st.set_page_config(
 )
 
 # --- Model_ADI API Configuration ---
-# Use Streamlit's secrets management for secure API key handling
-# For local development outside Streamlit Cloud, you can use a .streamlit/secrets.toml file
-# (e.g., [secrets] GENERATIVE_LANGUAGE_API_KEY="your_api_key")
-# or set an environment variable.
-MODEL_ADI_API_KEY = "" # Initialize with empty string
+MODEL_ADI_API_KEY = ""
 
-# First, try to load from Streamlit secrets.toml
 try:
     if "GENERATIVE_LANGUAGE_API_KEY" in st.secrets:
         MODEL_ADI_API_KEY = st.secrets["GENERATIVE_LANGUAGE_API_KEY"]
 except Exception as e:
-    st.error(f"Error initializing Streamlit secrets. Ensure your '.streamlit/secrets.toml' file exists and is correctly formatted. Details: {e}")
+    st.error(f"Error initializing Streamlit secrets for AI API. Ensure your '.streamlit/secrets.toml' file exists and is correctly formatted. Details: {e}")
 
-# If not found in secrets, try environment variable
 if not MODEL_ADI_API_KEY:
     MODEL_ADI_API_KEY = os.environ.get("GENERATIVE_LANGUAGE_API_KEY", "")
 
 Model_ADI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
-# Final warning if API key is still missing after all attempts
 if not MODEL_ADI_API_KEY:
     st.warning("Warning: GENERATIVE_LANGUAGE_API_KEY is not set. AI-powered features (disease detection, crop recommendations, remedies) will be limited or unavailable. Please set it in .streamlit/secrets.toml or as an environment variable.")
 
@@ -74,7 +67,6 @@ def get_base64_image(image_path):
         return "", ""
 
 # Load background image for the overall app (from your provided .py file)
-# Assuming Img_130716.png is in the same directory as Crop.py
 overall_bg_image_path = "Img_130716.png" 
 overall_bg_image_base64, overall_bg_mime_type = get_base64_image(overall_bg_image_path)
 
@@ -91,21 +83,20 @@ st.markdown(f"""
 
     html {{
         scroll-behavior: smooth; /* Smooth scrolling for anchor links */
-        /* Removed scroll-padding-top */
     }}
 
     body {{
         font-family: 'Inter', sans-serif;
         margin: 0;
-        padding-bottom: 30px; /* Adjusted padding-bottom for non-fixed footer */
+        padding-bottom: 30px;
         background-color: #e8f5e9; /* Light green background fallback */
-        color: #000; /* Ensured text color is black */
+        color: #000;
         min-height: 100vh;
     }}
 
     /* Streamlit overrides for main content area */
     .stApp {{
-        background-color: transparent; /* Ensure body background shows through if no image */
+        background-color: transparent;
         {"background-image: url('data:" + overall_bg_mime_type + ";base64," + overall_bg_image_base64 + "');" if overall_bg_image_base64 else ""}
         background-size: cover;
         background-position: center;
@@ -114,29 +105,28 @@ st.markdown(f"""
     }}
 
     .stApp > header {{
-        display: none; /* Hide Streamlit's default header */
+        display: none;
     }}
     .stApp [data-testid="stSidebar"] {{
-        display: none !important; /* Hide sidebar as per request */
+        display: none !important;
     }}
 
     /* Custom Navigation Bar Styling */
     .main-nav-container {{
-        position: fixed; /* Changed to fixed */
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        background-color: #388e3c; /* Darker green for the nav bar */
+        background-color: #388e3c;
         padding: 15px 0;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        display: flex; /* Use flex for nav items */
-        justify-content: center; /* Center the navigation links */
-        z-index: 999; /* Ensure it stays on top */
-        border-bottom: 3px solid #66bb6a; /* A subtle border */
+        display: flex;
+        justify-content: center;
+        z-index: 999;
+        border-bottom: 3px solid #66bb6a;
     }}
 
     .main-nav-item {{
-        color: white;
         text-decoration: none;
         font-weight: 600;
         font-size: 1.1em;
@@ -149,15 +139,21 @@ st.markdown(f"""
         cursor: pointer;
     }}
 
+    /* The core change to force white color on navigation links */
+    .main-nav-item, .main-nav-item a {{
+        color: white !important; /* Force white color for both the div and any inner anchor tags */
+        text-decoration: none !important; /* Ensure no underline for links */
+    }}
+
     .main-nav-item:hover {{
-        background-color: #2e7d32; /* Even darker green on hover */
+        background-color: #2e7d32;
         transform: translateY(-2px);
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }}
 
-    /* Main Content Block Container - NOW HAS IMAGE BACKGROUND AND IS WIDER */
+    /* Main Content Block Container */
     div.block-container {{
-        padding-top: 2rem; /* Adjusted padding as content is directly inside */
+        padding-top: 2rem;
         padding-bottom: 2rem;
         padding-left: 1rem;
         padding-right: 1rem;
@@ -166,40 +162,38 @@ st.markdown(f"""
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        background-attachment: scroll; /* Scroll with content */
+        background-attachment: scroll;
 
         border-radius: 15px;
         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
         border: 1px solid #d4edda;
-        margin: 120px auto 30px auto; /* Adjusted top margin to 120px for fixed nav bar clearance */
-        max-width: 60%; /* Made narrower by user */
+        margin: 120px auto 30px auto;
+        max-width: 60%;
     }}
 
-    /* REMOVED .card STYLING - no more individual cards */
-
-    /* Header Title (for h1 in Home section) - Light Green and Larger */
+    /* Header Title */
     .header-title {{
-        font-size: 3.5em !important; /* Made larger */
-        color: #66BB6A !important; /* Light green - Forced with !important */
+        font-size: 3.5em !important;
+        color: #66BB6A !important;
         font-weight: bold;
         text-align: center;
         margin-bottom: 30px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.2); /* Adjusted shadow for visibility */
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
     }}
     .header-title i {{
         margin-right: 10px;
-        color: #4CAF50; /* A vibrant green for the icon */
+        color: #4CAF50;
     }}
 
-    /* Headings for sections (Streamlit uses H2 and H3 for its titles) - Deep Green and Larger */
-    h2 {{ /* Targets st.header() or st.markdown("##") */
-        font-size: 2.2em !important; /* Made larger */
-        color: #1B5E20 !important; /* Deep green */
-        margin-top: 30px; /* Added top margin for separation */
+    /* Headings for sections */
+    h2 {{
+        font-size: 2.2em !important;
+        color: #1B5E20 !important;
+        margin-top: 30px;
         margin-bottom: 20px;
         display: flex;
         align-items: center;
-        border-bottom: 1px solid #eee; /* Subtle separator line */
+        border-bottom: 1px solid #eee;
         padding-bottom: 5px;
     }}
     h2 i {{
@@ -207,18 +201,18 @@ st.markdown(f"""
         color: #66bb6a;
     }}
 
-    h3 {{ /* Targets st.subheader() or st.markdown("###") */
-        font-size: 1.8em !important; /* Made larger */
+    h3 {{
+        font-size: 1.8em !important;
         color: #555 !important;
         margin-top: 20px;
         margin-bottom: 15px;
     }}
     
-    /* General Paragraph Text (from st.write) - Ensure readability */
+    /* General Paragraph Text (from st.write) */
     p {{
-        font-size: 1.6em; /* Made bigger for general content */
+        font-size: 1.6em;
         line-height: 1.6;
-        color: #000; /* Explicitly black for readability */
+        color: #000;
     }}
 
     /* Explicitly make list items black within the main content block */
@@ -233,12 +227,12 @@ st.markdown(f"""
     #crop-query-section,
     #predict-section,
     #contact-section,
-    #chatbot-section {{ /* Added chatbot-section */
-        scroll-margin-top: 100px; /* Offset for the fixed navigation bar + extra space */
-        padding-top: 20px; /* Added padding to ensure content starts clearly below nav */
+    #chatbot-section {{
+        scroll-margin-top: 100px;
+        padding-top: 20px;
     }}
 
-    /* Input Elements (Streamlit widgets are rendered as specific HTML inputs) */
+    /* Input Elements */
     .stNumberInput label,
     .stSelectbox label,
     .stFileUploader label {{
@@ -261,11 +255,11 @@ st.markdown(f"""
     .stNumberInput input:focus,
     .stSelectbox select:focus {{
         border-color: #66bb6a;
-        box-shadow: 0 0 0 3px rgba(102, 187, 106, 0.3);
+        box_shadow: 0 0 0 3px rgba(102, 187, 106, 0.3);
         outline: none;
     }}
 
-    /* Buttons (Streamlit buttons are specific HTML <button>s inside a div) */
+    /* Buttons */
     .stButton > button {{
         display: inline-flex;
         align-items: center;
@@ -278,14 +272,14 @@ st.markdown(f"""
         transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
         border: none;
         text-decoration: none;
-        background-color: #4CAF50; /* Green */
+        background-color: #4CAF50;
         color: white;
         box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
-        width: 100%; /* Make buttons take full width of their column/container */
+        width: 100%;
         margin-top: 15px;
     }}
     .stButton > button:hover {{
-        background-color: #388e3c; /* Darker green */
+        background-color: #388e3c;
         transform: translateY(-2px);
         box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
     }}
@@ -294,15 +288,15 @@ st.markdown(f"""
     }}
 
     /* Image Upload Specifics */
-    .stFileUploader > div:first-child {{ /* Targets the input area of file uploader */
+    .stFileUploader > div:first-child {{
         margin-bottom: 20px;
         padding: 10px;
         border: 1px dashed #cccccc;
         border-radius: 8px;
         background-color: #f9f9f9;
     }}
-    .image-preview-container {{ /* Custom container for image to apply preview styling */
-        min-height: 200px;
+    .image-preview-container {{
+        min-height: 50px; /* Reduced min-height for cards */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -313,31 +307,32 @@ st.markdown(f"""
         overflow: hidden;
     }}
     .image-preview-container img {{
-        max-width: 100%;
-        max-height: 400px; /* Limit height for larger images */
+        max-width: 10%; /* Significantly reduced */
+        max-height: 40px; /* Significantly reduced */
         height: auto;
         border-radius: 8px;
-        display: block; /* Ensures no extra space below image */
-        object-fit: contain; /* Ensures image fits within the box */
+        display: block; /* To allow margin auto for centering */
+        margin: 0 auto; /* Center the image within its container */
+        object-fit: contain;
     }}
 
-    /* Output Boxes (these can remain as they are for results) */
+    /* Output Boxes (Cards) */
     .output-box, .output-card {{
-        background-color: #e6ffe6; /* Lightest green */
+        background-color: #e6ffe6;
         color: black;
-        padding: 25px;
+        padding: 15px; /* Reduced padding for smaller card size */
         border-radius: 10px;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        font-size: 1.1em;
-        line-height: 1.6;
+        margin-top: 10px; /* Reduced margin */
+        margin-bottom: 10px; /* Reduced margin */
+        font-size: 1em; /* Slightly reduced font size */
+        line-height: 1.5; /* Slightly reduced line height */
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        border-left: 6px solid #4CAF50; /* Default green border */
+        border-left: 6px solid #4CAF50;
     }}
     .output-box strong, .output-card strong {{
-        font-size: 1.2em;
+        font-size: 1.1em; /* Slightly reduced font size */
         color: #2e7d32;
-        margin-bottom: 10px;
+        margin-bottom: 8px; /* Reduced margin */
         display: block;
     }}
     .output-box span, .output-card span {{
@@ -345,29 +340,31 @@ st.markdown(f"""
     }}
 
     /* Specific Output Box Borders */
-    .remedy-box {{ border-left-color: #fb8c00; }} /* Orange */
-    .medicine-box {{ border-left-color: #43a047; }} /* Another green shade */
-    .crop-recommendation-output {{ border-left-color: #1a73e8; }} /* Blue */
+    .remedy-box {{ border-left-color: #fb8c00; }}
+    .medicine-box {{ border-left-color: #43a047; }}
+    .crop-recommendation-output {{ border-left-color: #1a73e8; }}
 
     /* Segmented Image specific styling */
     .segmented-image-card img {{
-        max-width: 100%;
+        max-width: 10%; /* Significantly reduced */
+        max-height: 40px; /* Significantly reduced */
         height: auto;
         border-radius: 8px;
-        margin-top: 15px;
+        margin-top: 10px; /* Reduced margin */
         border: 2px solid #ddd;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        display: block; /* To allow margin auto for centering */
+        margin: 10px auto; /* Center the image within its container, keeping top margin */
     }}
 
     /* Footer Styles */
     .app-footer {{
-        /* Removed position: fixed, bottom, left, z-index */
-        width: 100%;   /* Span full parent width (which is the Streamlit app area) */
-        background-color: #2e7d32; /* Dark green, matching header */
+        width: 100%;
+        background-color: #2e7d32;
         color: rgba(255, 255, 255, 0.8);
         text-align: center;
         padding: 20px 0;
-        margin-top: 40px; /* Space above the footer */
+        margin-top: 40px;
         font-size: 0.9em;
         box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     }}
@@ -380,7 +377,7 @@ st.markdown(f"""
     @media (max-width: 768px) {{
         div.block-container {{
             padding: 20px;
-            padding-top: 8rem; /* Adjusted for mobile nav to prevent overlap */
+            padding-top: 8rem;
         }}
         .header-title {{
             font-size: 2em !important;
@@ -399,13 +396,19 @@ st.markdown(f"""
             width: 100%;
         }}
         .main-nav-container {{
-            flex-direction: column; /* Stack nav items vertically on small screens */
+            flex-direction: column;
             padding: 10px 0;
         }}
         .main-nav-item {{
-            margin: 5px 0; /* Adjust vertical margin for stacked links */
+            margin: 5px 0;
             width: fit-content;
-            align-self: center; /* Center each item */
+            align-self: center;
+        }}
+        /* Further reduce image size on very small screens if needed */
+        .image-preview-container img,
+        .segmented-image-card img {{
+            max-width: 25%; /* Adjusted for mobile if needed */
+            max-height: 50px; /* Adjusted for mobile if needed */
         }}
     }}
     </style>
@@ -525,7 +528,7 @@ def load_unet_model_cached():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     unet_instance = UNet()
     try:
-        # Assuming 'leaf_unet3_model.pth' is in the same directory as this app.py
+        # Assuming 'leaf_unett_model.pth' is in the same directory as this app.py
         MODEL_PATH = os.path.join(os.path.dirname(__file__), 'leaf_unett_model.pth')
         if not os.path.exists(MODEL_PATH):
             st.error(f"U-Net model file not found at: {MODEL_PATH}. Disease segmentation will not work.")
@@ -760,7 +763,7 @@ def get_remedies_with_model_ADI(disease_name: str, temp: float, humidity: float,
         return {"Precautions": "Error", "Medicines": "Error"}
 
 @st.cache_data(ttl=3600) # Cache results for 1 hour
-def get_suitable_crops_with_gemini(temp: float, humidity: float, ph: float, light: float, N: float, P: float, K: float, rain: str) -> list[dict]: # Changed return type hint
+def get_suitable_crops_with_model_ADI(temp: float, humidity: float, ph: float, light: float, N: float, P: float, K: float, rain: str) -> list[dict]: # Changed return type hint
     """
     Requests suitable crops from Gemini API based on environmental conditions.
     Returns a list of dictionaries, each containing English and Bengali crop names.
@@ -903,17 +906,27 @@ def main():
     st.markdown('<h2><i class="fas fa-seedling"></i> Environmental Conditions & Crop Query</h2>', unsafe_allow_html=True)
     st.write("Please provide the current environmental conditions below. These values will be used for both crop recommendations and for generating disease remedies.")
 
+    # Default values for environmental inputs
+    default_temp = 25.0
+    default_hum = 65.0
+    default_ph = 6.5
+    default_light = 10000.0
+    default_n = 10.0
+    default_p = 5.0
+    default_k = 15.0
+    default_rain = "0" # "0" for No Rain, "1" for Raining/Recently Rained
+
     # Environmental inputs (Unified inputs for both sections)
     col_env1, col_env2 = st.columns(2)
     with col_env1:
-        temperature = st.number_input("Temperature (°C):", value=25.0, step=0.1, min_value=0.0, max_value=100.0, key="main_temp")
-        soil_ph = st.number_input("Soil pH:", value=6.5, step=0.1, min_value=0.0, max_value=14.0, format="%.1f", key="main_ph")
-        npk_n = st.number_input("Nitrogen (N %):", value=10.0, step=0.1, min_value=0.0, max_value=100.0, format="%.1f", key="main_n")
-        npk_k = st.number_input("Potassium (K %):", value=15.0, step=0.1, min_value=0.0, max_value=100.0, format="%.1f", key="main_k")
+        temperature = st.number_input("Temperature (°C):", value=default_temp, step=0.1, min_value=0.0, max_value=100.0, key="main_temp")
+        soil_ph = st.number_input("Soil pH:", value=default_ph, step=0.1, min_value=0.0, max_value=14.0, format="%.1f", key="main_ph")
+        npk_n = st.number_input("Nitrogen (N %):", value=default_n, step=0.1, min_value=0.0, max_value=100.0, format="%.1f", key="main_n")
+        npk_k = st.number_input("Potassium (K %):", value=default_k, step=0.1, min_value=0.0, max_value=100.0, format="%.1f", key="main_k")
     with col_env2:
-        humidity = st.number_input("Humidity (%):", value=65.0, step=0.1, min_value=0.0, max_value=100.0, key="main_hum")
-        light_intensity = st.number_input("Light Intensity (Lux):", value=10000.0, step=100.0, min_value=0.0, key="main_light")
-        npk_p = st.number_input("Phosphorus (P %):", value=5.0, step=0.1, min_value=0.0, max_value=100.0, format="%.1f", key="main_p")
+        humidity = st.number_input("Humidity (%):", value=default_hum, step=0.1, min_value=0.0, max_value=100.0, key="main_hum")
+        light_intensity = st.number_input("Light Intensity (Lux):", value=default_light, step=100.0, min_value=0.0, key="main_light")
+        npk_p = st.number_input("Phosphorus (P %):", value=default_p, step=0.1, min_value=0.0, max_value=100.0, format="%.1f", key="main_p")
         rain_status = st.selectbox("Rain Status:", options=[("No Rain", "0"), ("Raining/Recently Rained", "1")], format_func=lambda x: x[0], key="main_rain")[1]
     
     st.markdown("---") # Separator before the "Recommend Crops" button
@@ -921,7 +934,7 @@ def main():
     if st.button("Recommend Crops", key="recommendCropsBtn_query"):
         with st.spinner('Fetching crop recommendations...'):
             # Use the values from the unified inputs for crop recommendations
-            suitable_crops = get_suitable_crops_with_gemini(temperature, humidity, soil_ph, light_intensity, npk_n, npk_p, npk_k, rain_status)
+            suitable_crops = get_suitable_crops_with_model_ADI(temperature, humidity, soil_ph, light_intensity, npk_n, npk_p, npk_k, rain_status)
             
             st.markdown('<div class="output-box crop-recommendation-output">', unsafe_allow_html=True)
             st.markdown('<strong>Recommended Crops:</strong>', unsafe_allow_html=True)
@@ -946,7 +959,8 @@ def main():
         image_bytes = uploaded_file.read()
         image_pil = Image.open(io.BytesIO(image_bytes)).convert("RGB")
         st.markdown('<div class="image-preview-container">', unsafe_allow_html=True)
-        st.image(image_pil, caption='Uploaded Image', use_container_width=True)
+        # Removed use_container_width=True to allow CSS to control size more effectively
+        st.image(image_pil, caption='Uploaded Image') 
         st.markdown('</div>', unsafe_allow_html=True)
     else:
         st.info("Upload an image to see its preview.")
@@ -966,14 +980,25 @@ def main():
                 elif predicted_disease in ["I don't know", "Not a plant image", "Healthy", "Failed to get disease name from AI."]:
                     st.warning(f"AI could not provide a specific diagnosis: {predicted_disease}. Please try another image or check context.")
                 else:
+                    # Use the current values from the inputs
+                    current_temp = temperature
+                    current_humidity = humidity
+                    current_ph = soil_ph
+                    current_light = light_intensity
+                    current_N = npk_n
+                    current_P = npk_p
+                    current_K = npk_k
+                    current_rain = rain_status
+
+
                     segmented_image_display = segment_with_unet(image_pil, mask_radius_factor=0.7)
                     ai_confidence = random.uniform(85.0, 99.0)
                     
                     # Fetch remedies using the values from the UNIFIED inputs
                     remedies_data = get_remedies_with_model_ADI(
                         predicted_disease, 
-                        temperature, humidity, soil_ph, light_intensity, 
-                        npk_n, npk_p, npk_k, rain_status
+                        current_temp, current_humidity, current_ph, current_light, 
+                        current_N, current_P, current_K, current_rain
                     )
                     
                     formatted_precautions = format_remedies(remedies_data.get("Precautions", "No recommendations.")).replace("\n", "<br>")
@@ -989,16 +1014,17 @@ def main():
                     # Display the user-provided environmental conditions from the unified inputs for transparency
                     st.markdown(f"""
                         <br><strong>Current Environmental Conditions (from above section):</strong><br>
-                        Temp: {temperature:.1f}C, Humidity: {humidity:.1f}%, pH: {soil_ph:.1f}<br>
-                        Light: {light_intensity:.0f} Lux, NPK: N{npk_n:.1f}% P{npk_p:.1f}% K{npk_k:.1f}%<br>
-                        Rain: {'Raining' if rain_status == '1' else 'No Rain'}
+                        Temp: {current_temp:.1f}C, Humidity: {current_humidity:.1f}%, pH: {current_ph:.1f}<br>
+                        Light: {current_light:.0f} Lux, NPK: N{current_N:.1f}% P{current_P:.1f}% K{current_K:.1f}%<br>
+                        Rain: {'Raining' if current_rain == '1' else 'No Rain'}
                     """, unsafe_allow_html=True)
                     st.markdown('</div>', unsafe_allow_html=True)
 
 
                     st.markdown('<div class="output-card segmented-image-card">', unsafe_allow_html=True)
                     st.markdown('<strong><i class="fas fa-leaf"></i> Segmented Disease Region:</strong>', unsafe_allow_html=True)
-                    st.image(segmented_image_display, caption="Detected Infections (Circles show detected infections)", use_container_width=True)
+                    # Removed use_container_width=True to allow CSS to control size more effectively
+                    st.image(segmented_image_display, caption="Detected Infections (Circles show detected infections)") 
                     st.markdown('</div>', unsafe_allow_html=True)
 
                     if remedies_data.get("Precautions") and remedies_data["Precautions"] not in ["API Key Missing", "API Error", "Parse Error", "Error", "No recommendations."]:
