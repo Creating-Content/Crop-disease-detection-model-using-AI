@@ -1,5 +1,6 @@
 # Crop-disease-detection-model-using-AI
 
+Output_images/web_layout.png
 🌿 Plant Disease Detector & Crop Recommender
 This Streamlit application serves as a comprehensive tool for agricultural assistance, offering plant disease detection, tailored crop recommendations based on environmental conditions, and AI-driven remedies. It leverages a custom U-Net model for precise leaf segmentation and Google's Gemini API for advanced AI capabilities.
 
