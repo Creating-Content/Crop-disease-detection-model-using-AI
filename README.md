@@ -44,23 +44,37 @@ Provide environmental details to get precise crop recommendations.
 🌱 Disease Detection & Remedies Flow
 See how the application diagnoses plant health and offers solutions.
 
-#Sample1:
-1. Upload & Analyze
+# Sample1:
+1. Upload & Analyze 
 Upload your plant image. The AI will process it for disease detection.
 
+![](Output_images/upload_image1.png)
 
-Upload your plant image for analysis.
-
-2. Segmented Disease & Prediction
+2. Segmented Disease & Prediction with Medicine , Precautions
 The U-Net model segments the disease regions, and the AI provides a diagnosis along with confidence.
+Receive detailed recommendations for remedies, including both preventative measures and suitable medicines.
+(This detail will be visible in the "Output Image with Segmented Disease" if that image captures the entire output section with medicine/precautions cards. If you have a separate image for just these, add another placeholder below.)
 
+![](Output_images/predicted_image1.png)
 
 Visualizing detected disease areas and AI's prediction.
 
-3. Medicines & Precautions
-Receive detailed recommendations for remedies, including both preventative measures and suitable medicines.
+# Sample2:
+1. Upload & Analyze 
+Upload your plant image. The AI will process it for disease detection.
 
+![](Output_images/upload_image2.png)
+
+2. Segmented Disease & Prediction with Medicine , Precautions
+The U-Net model segments the disease regions, and the AI provides a diagnosis along with confidence.
+Receive detailed recommendations for remedies, including both preventative measures and suitable medicines.
 (This detail will be visible in the "Output Image with Segmented Disease" if that image captures the entire output section with medicine/precautions cards. If you have a separate image for just these, add another placeholder below.)
+
+![](Output_images/predicted_image2.png)
+
+Visualizing detected disease areas and AI's prediction.
+
+
 
 🚀 Get Started
 Live Demo (Deployed Version)
