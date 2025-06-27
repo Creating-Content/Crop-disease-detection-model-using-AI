@@ -24,6 +24,7 @@ Our custom hardware module for environmental and soil data collection.
 📸 Application Layout & UI
 Explore the main interfaces of the web application.
 
+![](Output_images/web_layout2.png)
 Overall Web Layouts
 Get a feel for the application's design and navigation.
 
@@ -36,12 +37,14 @@ Another view of the application's structure.
 📈 Environmental Conditions & Crop Recommendations
 Input your environmental data (temperature, humidity, pH, NPK, light, rain status) to receive tailored crop suggestions. This data can come from our integrated hardware module.
 
-
+![](Output_images/recommend_crop1.png)
 Provide environmental details to get precise crop recommendations.
+![](Output_images/recommend_crop2.png)
 
 🌱 Disease Detection & Remedies Flow
 See how the application diagnoses plant health and offers solutions.
 
+#Sample1:
 1. Upload & Analyze
 Upload your plant image. The AI will process it for disease detection.
 
