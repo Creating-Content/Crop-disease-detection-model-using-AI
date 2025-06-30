@@ -17,7 +17,7 @@ Hardware Integration: Real-world data input from custom sensors.
 
 ⚙️ Hardware Module
 The project incorporates a custom-built hardware component that collects essential real-time environmental and soil data. This data directly informs the application's crop recommendations and remedy suggestions.
-
+![Alt text for the image](Output_images/hardware module.jpeg)
 
 Our custom hardware module for environmental and soil data collection.
 
