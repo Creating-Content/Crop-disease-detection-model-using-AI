@@ -5,6 +5,7 @@
 This project offers an integrated solution for agriculture: AI-driven plant disease detection, environmental crop recommendations, and practical remedies. It combines a hardware system for data collection with a Streamlit web application powered by a custom U-Net model and Google's Gemini AI.
 
 ✨ Key Features at a Glance
+```
 Disease Detection: AI analyzes plant images for health issues.
 
 Crop Recommendations: Suggestions based on environmental data.
@@ -14,7 +15,7 @@ Remedy Solutions: Practical advice for detected diseases.
 Visual Segmentation: Highlights affected areas on images.
 
 Hardware Integration: Real-world data input from custom sensors.
-
+```
 ⚙️ Hardware Module
 The project incorporates a custom-built hardware component that collects essential real-time environmental and soil data. This data directly informs the application's crop recommendations and remedy suggestions.
 
