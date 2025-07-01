@@ -53,7 +53,7 @@ Upload your plant image. The AI will process it for disease detection.
 ![](Output_images/upload_image1.png)
 
 2. Segmented Disease & Prediction with Medicine , Precautions
-The U-Net model segments the disease regions, and the AI provides a diagnosis along with confidence.
+3. The pre-trained U-Net model segments the disease regions, and the AI provides a diagnosis along with confidence.
 Receive detailed recommendations for remedies, including both preventative measures and suitable medicines.
 (This detail will be visible in the "Output Image with Segmented Disease" if that image captures the entire output section with medicine/precautions cards. If you have a separate image for just these, add another placeholder below.)
 
@@ -68,7 +68,7 @@ Upload your plant image. The AI will process it for disease detection.
 ![](Output_images/upload_image2.png)
 
 2. Segmented Disease & Prediction with Medicine , Precautions
-3. The pretrained U-Net model segments the disease regions, and the AI provides a diagnosis along with confidence.
+3. The pre-trained U-Net model segments the disease regions, and the AI provides a diagnosis along with confidence.
 Receive detailed recommendations for remedies, including both preventative measures and suitable medicines.
 (This detail will be visible in the "Output Image with Segmented Disease" if that image captures the entire output section with medicine/precautions cards. If you have a separate image for just these, add another placeholder below.)
 
