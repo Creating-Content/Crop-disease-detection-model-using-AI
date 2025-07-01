@@ -87,21 +87,22 @@ Local Setup
 To run this project locally:
 
 Clone:
-
-git clone https://github.com/YourGitHubUsername/your-repo-name.git
-cd your-repo-name
-
+```
+git clone https://github.com/Creating-Content/Crop-disease-detection-model-using-AI
+cd Crop-disease-detection-model-using-AI
+```
 Dependencies:
-
+```
 pip install -r requirements.txt
-
+```
 (Create requirements.txt with: streamlit, torch, torchvision, Pillow, numpy, opencv-python, requests)
 
 API Key: Obtain a Google Gemini API Key and save it in .streamlit/secrets.toml:
 
 # .streamlit/secrets.toml
+```
 GENERATIVE_LANGUAGE_API_KEY = "YOUR_API_KEY_HERE"
-
+```
 U-Net Model: Place your leaf_unett_model.pth file in the project's root directory.
 
 Run:
